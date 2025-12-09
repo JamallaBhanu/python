@@ -7,18 +7,20 @@ loopval = 0
 
 def damn(i):
     global loopval , value
+    print("value" , value)
+
+    loopval = 0
     for j in range(i+1 , len(n)):
         try:
             loopval = int(n[j]) + loopval
         except:
             if n[j] == "(":
-                damn(i)
+                print("loopval" , loopval)
                 value = loopval + value
-                loopval = 0
                 damn(j)
-                break
             if n[j] == ')':
                 value = loopval + value
+                return
 
 
 for i in range(len(n)):
