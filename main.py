@@ -1,33 +1,29 @@
-n = "(1+3-4+(2-5))+6"
+n = "(1+3+(1+2)+4+(2+5))+6"
 
-def calculate(s: str) -> int:
-    stack = []
-    operand = 0
-    result = 0
-    sign = 1
+value = 0 
 
-    for ch in s:
-        if ch.isdigit():
-            operand = (operand * 10) + int(ch)
-        elif ch == '+':
-            result += sign * operand
-            sign = 1
-            operand = 0
-        elif ch == '-':
-            result += sign * operand
-            sign = -1
-            operand = 0
-        elif ch == '(':
-            stack.append(result)
-            stack.append(sign)
-            sign = 1
-            result = 0
-        elif ch == ')':
-            result += sign * operand
-            result *= stack.pop()
-            result += stack.pop()
-            operand = 0
+loopval = 0
 
-    return result + sign * operand
 
-print(calculate(n))
+def damn(i):
+    global loopval , value
+    for j in range(i+1 , len(n)):
+        try:
+            loopval = int(n[j]) + loopval
+        except:
+            if n[j] == "(":
+                damn(i)
+                value = loopval + value
+                loopval = 0
+                damn(j)
+                break
+            if n[j] == ')':
+                value = loopval + value
+
+
+for i in range(len(n)):
+    if n[i] =='(':
+        damn(i)
+
+
+print(value)
