@@ -1,20 +1,25 @@
-n = "(1+3+(1+2)+4+(2+5))+6+(1+2)"
+n = "(1+3+(1+2)+(1-4) + (1+2))"
 
-lp = 0
+
 v = 0
 
 def cal(k):
-    global lp , v
+    lp = 0
+    global v 
     for i in range(k+1 , len(n)):
-        lp = 0
         try:
-            lp = int(n[i]) + lp
-            v = lp + v
+            temp = int(n[i])
+            if n[i-1] == "+" or n[i-1] != "-":
+                lp = temp + lp
+            if n[i-1] == "-":
+                lp = lp - temp
         except:
             if n[i] == '(':
+                v = lp + v
                 cal(i)
                 break
             if n[i] == ')':
+                v = lp + v
                 cal (i)
                 break
 
