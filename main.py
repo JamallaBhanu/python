@@ -1,26 +1,22 @@
-n = "(1+3+(1+2)+4+(2+5))+6"
-value = 0 
-loopval = 0
+n = "(1+3+(1+2)+4+(2+5))+6+(1+2)"
 
-def damn(i):
-    global loopval , value
-    #print("value" , value)
-    loopval = 0
-    for j in range(i+1 , len(n)):
+lp = 0
+v = 0
+
+def cal(k):
+    global lp , v
+    for i in range(k+1 , len(n)):
+        lp = 0
         try:
-            loopval = int(n[j]) + loopval
+            lp = int(n[i]) + lp
+            v = lp + v
         except:
-            if n[j] == "(":
-                #print("loopval" , loopval)
-                value = loopval + value
-                damn(j)
-            if n[j] == ')':
-                value = loopval + value
-                return
-               
-for i in range(len(n)):
-    if n[i] =='(':
-        damn(i)
+            if n[i] == '(':
+                cal(i)
+                break
+            if n[i] == ')':
+                cal (i)
+                break
 
-    
-print(value)
+cal(0)
+print(v)
